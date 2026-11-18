@@ -63,20 +63,45 @@ document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',(
 document.addEventListener('keydown',e=>{if(e.key==='Escape')up()});
 const animBtn=document.getElementById('animBtn');const setAB=()=>{animBtn.innerHTML=ANIM?'❚❚ Stopp bevegelse':'▶ Start bevegelse'};setAB();animBtn.addEventListener('click',()=>{ANIM=!ANIM;setAB();syncSMIL()});
 
-/* ---------- lenker til en bestemt visning (#nervecelle/synapse) ---------- */
-// Adressen oppdateres når man navigerer, slik at en lenke eller et bokmerke
-// åpner akkurat samme del – også i den nedlastede fila.
-function syncHash(){const h='#'+path.concat(sel?[sel]:[]).join('/');if(location.hash!==h)try{history.replaceState(null,'',h)}catch(e){}}
+/* ---------- adresse og nettleserhistorikk (#nervecelle/synapse) ---------- */
+// Bare visningslaget (path) står i adressen. Hvert nytt lag blir et steg i
+// historikken, slik at nettleserens tilbake/frem (Alt+←/→, museknapper,
+// sveip på mobil) og Backspace hopper mellom lag. Å velge en del (sel) for å
+// lese om den endrer verken adressen eller historikken.
+let histI=0,histKlar=false,ignorerPop=false;const stakk=[];
+function syncHash(){
+ const h='#'+path.join('/');if(location.hash===h)return;
+ try{
+  if(!histKlar){history.replaceState({i:histI},'',h)}
+  // gikk vi opp til laget rett bak oss (Tilbake, Esc, brødsmuler)? Gå da
+  // tilbake i historikken i stedet for å lage et nytt steg.
+  else if(histI>0&&stakk[histI-1]===h){ignorerPop=true;history.back()}
+  else if(stakk[histI+1]===h){ignorerPop=true;history.forward()}
+  else{history.pushState({i:++histI},'',h);stakk.length=histI;stakk[histI]=h}
+ }catch(e){}}
 function fromHash(){
  const ids=decodeURIComponent(location.hash.slice(1)).split('/').filter(Boolean);
  if(!ids.length||!N[ids[0]]||!N[ids[0]].s||N[ids[0]].l!==0)return false;
- const p=[ids[0]];let s=null;
- for(const id of ids.slice(1)){const cur=N[p[p.length-1]];if(s||!N[id]||!cur.k||!cur.k.includes(id))break;if(N[id].s)p.push(id);else s=id}
- path=p;sel=s;return true}
-addEventListener('hashchange',()=>{if(!busy&&fromHash())render()});
+ const p=[ids[0]];
+ for(const id of ids.slice(1)){const cur=N[p[p.length-1]];if(!N[id]||!N[id].s||!cur.k||!cur.k.includes(id))break;p.push(id)}
+ return p}
+function tilHash(){
+ if(busy){setTimeout(tilHash,60);return}
+ const p=fromHash()||['dyrecelle'];if(p.join('/')===path.join('/')&&!sel)return;
+ const inn=p.length>=path.length;path=p;sel=null;render(inn?'in':'out')}
+addEventListener('popstate',e=>{histI=e.state&&e.state.i||0;stakk[histI]=location.hash;if(ignorerPop){ignorerPop=false;return}tilHash()});
+document.addEventListener('keydown',e=>{
+ if(e.key!=='Backspace'||e.altKey||e.ctrlKey||e.metaKey)return;
+ const t=e.target;if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)&&!/^(range|checkbox|radio|button)$/.test(t.type)))return;
+ e.preventDefault();
+ if(e.shiftKey)history.forward();else if(histI>0)history.back();else{sel=null;up()}});
 
 /* nedlastingsknappen gir ingen mening når siden allerede er lastet ned */
 if(location.protocol==='file:')document.getElementById('foot').hidden=true;
 
-fromHash();
+histI=history.state&&history.state.i||0;
+{const p=fromHash();if(p)path=p}
 render();
+stakk[histI]=location.hash;
+try{history.replaceState({i:histI},'',location.hash)}catch(e){}
+histKlar=true;
