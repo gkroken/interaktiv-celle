@@ -31,7 +31,7 @@ function renderInfo(){
  document.getElementById('ladder').innerHTML=LV.map((n,i)=>`<li class="${i===lv?'on':i<lv?'past':''}">${n}</li>`).join('');
  let h='';
  if(sel)h+=`<button class="backlink" data-up="1">← ${cur.t}</button>`;
- h+=`<div class="kicker">${LV[lv]}${sel?' · del av '+cur.t.toLowerCase():''}</div><h2>${shown.t}</h2><p>${shown.x}</p>`;
+ h+=`<div class="kicker">${shown.kt||LV[lv]}${sel?' · del av '+cur.t.toLowerCase():''}</div><h2>${shown.t}</h2><p>${shown.x}</p>`;
  if(shown.f)h+=`<h3>Viktig å vite</h3><ul>${shown.f.map(x=>`<li>${x}</li>`).join('')}</ul>`;
  if(shown.v)h+=`<div class="fun"><b>Visste du?</b> ${shown.v}</div>`;
  if(shown.d)h+=`<details class="deep"${deepOpen?' open':''}><summary>Fordypning</summary><p>${shown.d}</p></details>`;

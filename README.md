@@ -2,11 +2,12 @@
 
 Interaktiv celle-utforsker for biologiundervisning (norsk bokmål). Velg en celletype og klikk deg nedover – fra hel celle via organeller og strukturer til makromolekyler og molekyler.
 
-**Celletyper:** dyrecelle, plantecelle, nervecelle, muskelcelle, rød blodcelle, sædcelle og bakterie.
+**Celletyper:** dyrecelle, plantecelle, nervecelle, øyet (staver og tapper), muskelcelle, rød blodcelle, sædcelle og bakterie.
 
 **Levende modeller blant annet:**
 - Nerveimpuls med og uten myelin, synapsen trinn for trinn og aksjonspotensialet med mV-graf
 - Sarkomer med aktin/myosin, Ca²⁺ og rigor mortis
+- Øyet: akkommodasjon og alderssyn, ON/OFF-baner i netthinnen, mørkestrømmen, fargesyn og fargesvikt, fototransduksjon fra ett foton til strøm, rodopsin og G-proteinsyklusen
 - Hemoglobin med metningskurve og Bohr-effekt
 - Proteinfolding fra primær- til kvartærstruktur, med denaturering
 - Enzymaktivitet og temperatur, translasjon, transkripsjon, DNA-replikasjon

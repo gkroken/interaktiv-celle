@@ -66,7 +66,8 @@ FF.svg=(st,id,lab)=>{
  return P(id,cell+st.nuc.map(FF.nuc).join('')+st.chr.map((c,k)=>FF.chrom(k,c)).join(''))+P('spoletrader',`<g>${fib}</g>`,{nl:1})+P('sentrioler',st.cen.map(FF.cen).join(''),{nl:1})+(lab?lab(st):'')};
 
 // spiller: samme kontrollpanel som de andre trinnvise modellene
-function fasefilm({tittel,steps,keys,tm=[],hold,loopFx,lab,map={},dur=5.8,pos='bl',w=300}){
+// svg: egen tegnefunksjon (st,id,lab) → SVG; standard er cellebildet FF.svg
+function fasefilm({tittel,steps,keys,tm=[],hold,loopFx,lab,map={},dur=5.8,pos='bl',w=300,svg:tegn=FF.svg}){
  return{pos,ctrl:`<div style="width:${w}px;max-width:100%"><div class="cx-title">${tittel}</div><div class="cx-row"><button class="cbtn" data-a="prev" aria-label="Forrige">‹</button><button class="cbtn" data-a="play">Pause</button><button class="cbtn" data-a="next" aria-label="Neste">›</button><span class="stepn"></span></div><div class="dots">${steps.map((_,i)=>`<i data-i="${i}"></i>`).join('')}</div><div class="cx-note stx"></div></div>`,
  init(){
   const n=steps.length,TR=FF.TR,g=q('#ff'),pb=cq('[data-a=play]');
@@ -78,7 +79,7 @@ function fasefilm({tittel,steps,keys,tm=[],hold,loopFx,lab,map={},dur=5.8,pos='b
     return{st:FF.lerp(keys[(i+n-1)%n],keys[i],e,tm[i])}}
    const st=FF.copy(keys[i]);if(hold)hold(i,st,(u-TR)/(1-TR),natural);return{st}}
   function render(){const i=Math.floor(T),r=state();cur=r.st;
-   g.innerHTML=(r.pre||'')+`<g${r.tf?` transform="${r.tf}"`:''}${r.op!=null?` opacity="${f1(r.op)}"`:''}>${FF.svg(r.st,steps[i].id,lab)}</g>`;
+   g.innerHTML=(r.pre||'')+`<g${r.tf?` transform="${r.tf}"`:''}${r.op!=null?` opacity="${f1(r.op)}"`:''}>${tegn(r.st,steps[i].id,lab)}</g>`;
    if(typeof mark==='function')mark();
    if(i!==shown){shown=i;cq('.stx').innerHTML=steps[i].t;cq('.stepn').textContent=`Trinn ${i+1} av ${n}`;ctrl.querySelectorAll('.dots i').forEach((d,k)=>d.classList.toggle('on',k===i))}}
   const setPB=()=>{pb.textContent=playing?'Pause':'Spill av';pb.classList.toggle('on',!playing)};
