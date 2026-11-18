@@ -15,7 +15,8 @@ Interaktiv celle-utforsker for biologiundervisning (norsk bokmål). Velg en cell
 ## For elever og lærere
 
 - **Last ned:** Knappen «⬇ Last ned siden» nederst gir deg `cellen.html` – én fil som virker uten nett. Den kan legges i Teams/itslearning/OneDrive eller på en minnepinne og åpnes i hvilken som helst nettleser.
-- **Lenke rett til en del:** Adresselinja følger med når du klikker deg rundt, f.eks. `…/#nervecelle/synapse` eller `…/#plantecelle/kloroplast/tylakoid`. Kopier lenken for å sende elevene rett dit. Det virker også i den nedlastede fila.
+- **Lenke rett til en del:** Adresselinja viser hvilket lag du er på, f.eks. `…/#nervecelle/synapse` eller `…/#plantecelle/kloroplast/tylakoid`. Kopier lenken for å sende elevene rett dit. Det virker også i den nedlastede fila.
+- **Frem og tilbake mellom lag:** Nettleserens tilbake/frem (knappene, Alt+←/→, museknapper, sveip på mobil) og **Backspace** / **Shift+Backspace** hopper mellom visningslagene. Å klikke på en del for å lese om den lager ikke et nytt steg.
 - Ingen sporing, ingen eksterne kall – fontene ligger i prosjektet.
 
 ## Mappestruktur

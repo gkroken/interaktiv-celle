@@ -50,6 +50,30 @@ for (const [navn, url] of Object.entries(sider)) {
   const sti = await page.evaluate(() => path.join('/'));
   if (sti !== 'nervecelle/synapse') problemer.push(`hash-lenke ga «${sti}», ventet «nervecelle/synapse»`);
 
+  // nettleserhistorikk: bare lag-bytter skal bli steg, ikke valg av deler
+  await page.goto(url + '#nervecelle');
+  const hist = async () => page.evaluate(() => [location.hash, path.join('/'), history.length]);
+  const sjekk = async (hva, ventetHash) => {
+    await page.waitForFunction(() => !busy);
+    await page.waitForTimeout(80);
+    const [h, p] = await hist();
+    if (h !== ventetHash || '#' + p !== ventetHash) problemer.push(`historikk – ${hva}: adresse ${h}, visning #${p}, ventet ${ventetHash}`);
+  };
+  await page.evaluate(() => go('synapse'));
+  await sjekk('zoom inn', '#nervecelle/synapse');
+  const [, , lengdeFør] = await hist();
+  await page.evaluate(() => { const k = N.synapse.k.find((k) => !N[k].s); go(k); });
+  const [, , lengdeEtter] = await hist();
+  await sjekk('velg del', '#nervecelle/synapse');
+  if (lengdeEtter !== lengdeFør) problemer.push('historikk – å velge en del la til et steg');
+  await page.goBack(); await sjekk('nettleser tilbake', '#nervecelle');
+  await page.goForward(); await sjekk('nettleser frem', '#nervecelle/synapse');
+  await page.keyboard.press('Backspace'); await sjekk('Backspace', '#nervecelle');
+  await page.keyboard.press('Shift+Backspace'); await sjekk('Shift+Backspace', '#nervecelle/synapse');
+  await page.click('#back'); await sjekk('Tilbake-knappen', '#nervecelle');
+  const [, , lengdeTilbake] = await hist();
+  if (lengdeTilbake !== lengdeFør) problemer.push('historikk – Tilbake-knappen la til et nytt steg i stedet for å gå tilbake');
+
   problemer.push(...res.mangler);
   console.log(`${problemer.length ? '✘' : '✔'} ${navn}: ${res.scener} scener, ${res.levende} levende modeller, ${res.deler} deler klikket`);
   for (const p of problemer) console.log('   ' + p);
