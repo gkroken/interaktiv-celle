@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cellen – zoom deg inn</title>
+<meta name="description" content="Interaktiv celle-utforsker for biologiundervisning: zoom fra hel celle via organeller til molekyler.">
+<link rel="stylesheet" href="css/stil.css">
+</head>
+<body>
+<div class="app">
+<header>
+  <div>
+    <h1>Cellen – zoom deg inn</h1>
+    <p>Velg en celletype og klikk på en del for å gå ett nivå ned – fra hel celle til molekylene den er bygd av.</p>
+  </div>
+  <div class="seg" role="tablist">
+    <button data-root="dyrecelle" class="on">Dyrecelle</button>
+    <button data-root="plantecelle">Plantecelle</button>
+    <button data-root="nervecelle">Nervecelle</button>
+    <button data-root="muskelcelle">Muskelcelle</button>
+    <button data-root="rodblodcelle">Rød blodcelle</button>
+    <button data-root="saedcelle">Sædcelle</button>
+    <button data-root="bakterie">Bakterie</button>
+  </div>
+</header>
+<main>
+  <section class="stagecard">
+    <div class="toolbar">
+      <button class="btn" id="back">← Tilbake</button>
+      <nav id="crumbs" aria-label="Hvor du er"></nav>
+      <button class="btn" id="animBtn" title="Slå bevegelse av/på"></button>
+      <label class="tog"><input type="checkbox" id="lbls"> Vis navn</label>
+    </div>
+    <div class="stage" id="stage">
+      <svg id="svg" viewBox="0 0 800 600" role="img" aria-label="Interaktiv celle"></svg>
+      <div id="tip"></div>
+      <div id="ctrl" hidden></div>
+    </div>
+    <p class="hint">Hold musepekeren over en del for å se navnet. Deler med <b style="color:var(--acc)">Zoom inn</b> i lista kan du gå videre inn i. Noen figurer er levende – prøv kontrollene i hjørnet. Esc eller «Tilbake» går ett nivå opp.</p>
+  </section>
+  <aside>
+    <div class="card">
+      <p class="ladder-cap">Organisasjonsnivå</p>
+      <ol class="ladder" id="ladder"></ol>
+    </div>
+    <div class="card" id="info"></div>
+  </aside>
+</main>
+<footer class="foot" id="foot">
+  <a class="btn" id="lastned" href="cellen.html" download="cellen.html">⬇ Last ned siden</a>
+  <span>Én fil som virker uten nett – åpne den i en nettleser. Adresselinja viser alltid hvor du er, så du kan dele en lenke rett til en bestemt del.</span>
+</footer>
+</div>
+
+<!--
+  Rekkefølgen her betyr noe: filene deler globale navn (S, LIVE, N, DEEP …),
+  og senere filer bygger på de tidligere. Byggeskriptet (bygg.mjs) leser denne
+  lista og slår alt sammen til én fil.
+-->
+<script src="js/kjerne/hjelpere.js"></script>
+<script src="js/kjerne/tegnestil.js"></script>
+<script src="js/scener/grunnscener.js"></script>
+<script src="js/scener/detaljerte.js"></script>
+<script src="js/scener/reaksjoner.js"></script>
+<script src="js/scener/fotosyntese.js"></script>
+<script src="js/scener/celledeling.js"></script>
+<script src="js/scener/osmose-gjaering.js"></script>
+<script src="js/levende/levende.js"></script>
+<script src="js/levende/trinnvis.js"></script>
+<script src="js/levende/fotosyntese-deling-osmose.js"></script>
+<script src="js/innhold/noder.js"></script>
+<script src="js/innhold/reaksjoner.js"></script>
+<script src="js/innhold/fotosyntese-deling-osmose.js"></script>
+<script src="js/innhold/fordypning.js"></script>
+<script src="js/celletyper/felles.js"></script>
+<script src="js/celletyper/nervecelle.js"></script>
+<script src="js/celletyper/muskelcelle.js"></script>
+<script src="js/celletyper/rodblodcelle.js"></script>
+<script src="js/celletyper/bakterie.js"></script>
+<script src="js/celletyper/saedcelle.js"></script>
+<script src="js/celletyper/proteinfolding.js"></script>
+<script src="js/celletyper/innhold.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
