@@ -6,3 +6,4 @@
 - Ingen eksterne avhengigheter i selve siden (ingen CDN, ingen Google Fonts) – den nedlastede fila må virke uten nett.
 - Noen scener i `scener/grunnscener.js` overskrives av nyere versjoner i `scener/detaljerte.js` (siste tilordning til `S.<id>` vinner).
 - Kjør `npm test` etter endringer: den tegner alle scener i både `src/` og `dist/` og feiler på JS-feil eller brutte `k`-referanser.
+- Mitose og meiose (`levende/celledeling-film.js`) er «faser som film»: hver fase er en nøkkeltilstand med bare tall, og `fasefilm()` interpolerer mellom dem. Cellens omriss er metaballs (`FF.blobPath`). Vil du endre en fase, endre nøkkeltilstanden – ikke tegn egne SVG-bilder per fase.

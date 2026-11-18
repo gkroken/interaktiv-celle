@@ -32,20 +32,6 @@ init(){const map={c3:'c3',c4:'c4',cam:'cam',fotorespirasjon:'c3',buntskjede:'c4'
  ctrl.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>set(b.dataset.t));onSel=id=>{if(map[id])set(map[id])};set('c3')}};
 
 LIVE.cellesyklus=null;
-LIVE.mitose=stepper('Mitose – fase for fase',[
- {t:'<b>Interfase.</b> Cellen vokser og kopierer DNA-et (S-fasen). Kromosomene er lange og tynne (kromatin) og synes ikke. Sentrosomet er doblet.'},
- {t:'<b>Profase.</b> Kromatinet kveiles til synlige kromosomer – hvert med to søsterkromatider. Kjernemembranen brytes ned, og spoletråder vokser ut fra sentrosomene.'},
- {t:'<b>Metafase.</b> Kromosomene stiller seg på rekke i ekvatorplanet. Spoletråder fra hver pol fester seg i sentromeren.'},
- {t:'<b>Anafase.</b> Søsterkromatidene trekkes fra hverandre mot hver sin pol. Nå regnes hver kromatid som et eget kromosom.'},
- {t:'<b>Telofase.</b> Kromosomene når polene og pakkes ut igjen. Nye kjernemembraner dannes, og cellen begynner å snøres av.'},
- {t:'<b>Cytokinese.</b> Cytoplasmaet deles. Resultatet er to datterceller med nøyaktig samme arvestoff som morcellen. Hos planter bygges en celleplate i stedet.'}],{excl:true,dur:4.6,map:{interfase:0,sentrioler:0,profase:1,metafase:2,spoletrader:2,anafase:3,telofase:4,cytokinese:5}});
-LIVE.meiose=stepper('Meiose – to delinger',[
- {t:'<b>Profase I.</b> Homologe kromosomer – ett fra mor (rødt) og ett fra far (blått) – legger seg sammen. Kromatider bytter biter: <b>overkrysning</b>.'},
- {t:'<b>Metafase I.</b> Parene stiller seg i ekvatorplanet. Hvilken side mors og fars kromosom havner på, er tilfeldig (uavhengig fordeling).'},
- {t:'<b>Anafase I.</b> De homologe kromosomene trekkes fra hverandre. Søsterkromatidene henger fortsatt sammen.'},
- {t:'<b>Telofase I.</b> To celler med halvt kromosomtall (n). Hvert kromosom består fortsatt av to kromatider.'},
- {t:'<b>Meiose II.</b> Begge cellene deler seg igjen, nesten som i mitose: søsterkromatidene skilles.'},
- {t:'<b>Resultat.</b> Fire haploide celler (n), alle genetisk forskjellige. Hos mennesker har hver kjønnscelle 23 kromosomer.'}],{excl:true,dur:4.6,map:{homologe:0,overkrysning:0,uavhengig:1,meioseI:1,meioseII:4,haploid:5}});
 LIVE.gjaering=stepper('Gjæring trinn for trinn',[
  {t:'<b>1 · Glykolyse.</b> Glukose spaltes til 2 pyruvat. Det gir 2 ATP – men bruker NAD⁺, som blir til NADH.'},
  {t:'<b>2 · Problemet.</b> Uten oksygen kan ikke NADH leveres til elektrontransportkjeden. NAD⁺ går tomt, og glykolysen stopper – med mindre NAD⁺ gjenvinnes.'},
