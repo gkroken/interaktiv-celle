@@ -7,3 +7,4 @@
 - Noen scener i `scener/grunnscener.js` overskrives av nyere versjoner i `scener/detaljerte.js` (siste tilordning til `S.<id>` vinner).
 - Kjør `npm test` etter endringer: den tegner alle scener i både `src/` og `dist/` og feiler på JS-feil eller brutte `k`-referanser.
 - Mitose og meiose (`levende/celledeling-film.js`) er «faser som film»: hver fase er en nøkkeltilstand med bare tall, og `fasefilm()` interpolerer mellom dem. Cellens omriss er metaballs (`FF.blobPath`). Vil du endre en fase, endre nøkkeltilstanden – ikke tegn egne SVG-bilder per fase.
+- Øyet (`celletyper/oye*.js`): `oye.js` har øye, netthinne, stav og tapp; `oye-kaskade.js` har fototransduksjonssimuleringen og fasefilmene for rodopsin og G-proteinsyklusen (`fasefilm({svg:…})` med egen tegnefunksjon); `oye-innhold.js` har tekstene. Feltet `kt` på en node overstyrer nivåteksten (f.eks. «Organ»).
